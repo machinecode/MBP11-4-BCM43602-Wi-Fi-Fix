@@ -1,0 +1,7 @@
+# Local firmware copies with unclear redistribution status.
+firmware/brcm/*.txt
+
+# Editor and OS noise.
+.DS_Store
+*.swp
+*.swo
