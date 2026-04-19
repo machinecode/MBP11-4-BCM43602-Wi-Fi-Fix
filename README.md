@@ -14,6 +14,8 @@ addresses two separate issues:
 - `blacklist wl` in `/etc/modprobe.d/blacklist-wl.conf`
 - `options brcmfmac feature_disable=0x82000` in
   `/etc/modprobe.d/brcmfmac-feature-disable.conf`
+- masks `broadcom-wl-dkms` vendor blacklist with
+  `/etc/modprobe.d/broadcom-wl-dkms.conf -> /dev/null`
 - `brcmfmac` in `/etc/modules-load.d/brcmfmac.conf` so the driver loads on boot
 - An Apple/Broadcom NVRAM calibration file at
   `/lib/firmware/brcm/brcmfmac43602-pcie.Apple Inc.-MacBookPro11,4.txt`
@@ -63,6 +65,8 @@ sudo ./install.sh --skip-download
   the installer
 - `check-status.sh`: prints quick diagnostics
 - `modprobe.d/`: the two config files used by the fix
+- the installer also masks the vendor `broadcom-wl-dkms.conf` blacklist file
+  when that package is present
 - `modules-load.d/`: boot-time module loading for `brcmfmac`
 - `firmware/README.md`: how to provide your own local NVRAM file
 

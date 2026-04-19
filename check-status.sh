@@ -17,11 +17,14 @@ echo "== Config files =="
 for path in \
   /etc/modprobe.d/blacklist-wl.conf \
   /etc/modprobe.d/brcmfmac-feature-disable.conf \
+  /etc/modprobe.d/broadcom-wl-dkms.conf \
   /etc/modules-load.d/brcmfmac.conf
 do
   if [[ -f "$path" ]]; then
     printf '%s:\n' "$path"
     sed -n '1,20p' "$path"
+  elif [[ -L "$path" ]]; then
+    printf '%s -> %s\n' "$path" "$(readlink "$path")"
   else
     printf '%s: missing\n' "$path"
   fi

@@ -6,6 +6,7 @@ STATE_DIR="/var/lib/mbp11-4-bcm43602-wifi-fix"
 TARGET_NVRAM="/lib/firmware/brcm/brcmfmac43602-pcie.Apple Inc.-MacBookPro11,4.txt"
 WL_BLACKLIST_DST="/etc/modprobe.d/blacklist-wl.conf"
 FEATURE_DST="/etc/modprobe.d/brcmfmac-feature-disable.conf"
+WL_VENDOR_MASK_DST="/etc/modprobe.d/broadcom-wl-dkms.conf"
 MODULES_LOAD_DST="/etc/modules-load.d/brcmfmac.conf"
 
 require_root() {
@@ -46,6 +47,7 @@ main() {
 
   restore_or_remove "$WL_BLACKLIST_DST"
   restore_or_remove "$FEATURE_DST"
+  restore_or_remove "$WL_VENDOR_MASK_DST"
   restore_or_remove "$MODULES_LOAD_DST"
   restore_or_remove "$TARGET_NVRAM"
   reload_modules

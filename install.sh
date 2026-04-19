@@ -17,6 +17,8 @@ WL_BLACKLIST_DST="/etc/modprobe.d/blacklist-wl.conf"
 FEATURE_SRC="$SCRIPT_DIR/modprobe.d/brcmfmac-feature-disable.conf"
 FEATURE_DST="/etc/modprobe.d/brcmfmac-feature-disable.conf"
 
+WL_VENDOR_MASK_DST="/etc/modprobe.d/broadcom-wl-dkms.conf"
+
 MODULES_LOAD_SRC="$SCRIPT_DIR/modules-load.d/brcmfmac.conf"
 MODULES_LOAD_DST="/etc/modules-load.d/brcmfmac.conf"
 
@@ -65,6 +67,14 @@ install_config() {
 
   backup_if_needed "$dst"
   install -Dm0644 "$src" "$dst"
+}
+
+mask_vendor_wl_blacklist() {
+  if [[ -e /usr/lib/modprobe.d/broadcom-wl-dkms.conf || -e /lib/modprobe.d/broadcom-wl-dkms.conf ]]; then
+    backup_if_needed "$WL_VENDOR_MASK_DST"
+    rm -f "$WL_VENDOR_MASK_DST"
+    ln -s /dev/null "$WL_VENDOR_MASK_DST"
+  fi
 }
 
 confirm_download() {
@@ -190,6 +200,7 @@ main() {
 
   install_config "$WL_BLACKLIST_SRC" "$WL_BLACKLIST_DST"
   install_config "$FEATURE_SRC" "$FEATURE_DST"
+  mask_vendor_wl_blacklist
   install_config "$MODULES_LOAD_SRC" "$MODULES_LOAD_DST"
   install_nvram
   reload_modules
@@ -200,6 +211,7 @@ Install complete.
 Applied:
   - /etc/modprobe.d/blacklist-wl.conf
   - /etc/modprobe.d/brcmfmac-feature-disable.conf
+  - /etc/modprobe.d/broadcom-wl-dkms.conf -> /dev/null
   - /etc/modules-load.d/brcmfmac.conf
   - /lib/firmware/brcm/brcmfmac43602-pcie.Apple Inc.-MacBookPro11,4.txt
 
