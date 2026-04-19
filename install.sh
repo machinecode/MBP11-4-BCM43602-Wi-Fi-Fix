@@ -17,6 +17,9 @@ WL_BLACKLIST_DST="/etc/modprobe.d/blacklist-wl.conf"
 FEATURE_SRC="$SCRIPT_DIR/modprobe.d/brcmfmac-feature-disable.conf"
 FEATURE_DST="/etc/modprobe.d/brcmfmac-feature-disable.conf"
 
+MODULES_LOAD_SRC="$SCRIPT_DIR/modules-load.d/brcmfmac.conf"
+MODULES_LOAD_DST="/etc/modules-load.d/brcmfmac.conf"
+
 NVRAM_URL="${NVRAM_URL:-https://gist.githubusercontent.com/cristianmiranda/ba9d64b4324f0803d9422d765de62252/raw/fa8c3db4ece70e21b9619d918a5e5bfb6a28d72b/brcmfmac43602-pcie.txt}"
 
 usage() {
@@ -187,6 +190,7 @@ main() {
 
   install_config "$WL_BLACKLIST_SRC" "$WL_BLACKLIST_DST"
   install_config "$FEATURE_SRC" "$FEATURE_DST"
+  install_config "$MODULES_LOAD_SRC" "$MODULES_LOAD_DST"
   install_nvram
   reload_modules
 
@@ -196,6 +200,7 @@ Install complete.
 Applied:
   - /etc/modprobe.d/blacklist-wl.conf
   - /etc/modprobe.d/brcmfmac-feature-disable.conf
+  - /etc/modules-load.d/brcmfmac.conf
   - /lib/firmware/brcm/brcmfmac43602-pcie.Apple Inc.-MacBookPro11,4.txt
 
 Next steps:

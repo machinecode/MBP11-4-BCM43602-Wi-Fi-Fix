@@ -16,7 +16,8 @@ echo
 echo "== Config files =="
 for path in \
   /etc/modprobe.d/blacklist-wl.conf \
-  /etc/modprobe.d/brcmfmac-feature-disable.conf
+  /etc/modprobe.d/brcmfmac-feature-disable.conf \
+  /etc/modules-load.d/brcmfmac.conf
 do
   if [[ -f "$path" ]]; then
     printf '%s:\n' "$path"
